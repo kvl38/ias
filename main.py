@@ -7,19 +7,16 @@ app = Flask(__name__)
 @app.route('/getChat', methods=['GET'])
 def getChat():
     cur = conn.cursor()
-    cur.execute('SELECT * FROM chat;')
-    chat = cur.fetchall()
+    cur.execute('SELECT name, message FROM chat;')
+    dict = cur.fetchall()
+
+    # dict = {}
+    # for i in chat:
+    #     dict[i[0]] = i[1]
+
+    result = json.dumps(dict, indent=2, ensure_ascii=False)
     cur.close()
-
-    list_chat = []
-    for i in chat:
-        dict_chat = {}
-        dict_chat[i[1]] = i[2]
-        list_chat.append(dict_chat)
-
-    tuple_chat = tuple(list_chat)
-    print(tuple_chat)
-    return
+    return result
 
 
 @app.route('/sendMessage', methods=['POST'])
@@ -35,7 +32,6 @@ def sendMessage():
     dict_message = {}
     dict_message[str(name)] = str(message)
     return dict_message
-
 
 
 if __name__ == '__main__':
