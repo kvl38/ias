@@ -8,7 +8,7 @@ app = Flask(__name__)
 def getChat():
     cur = conn.cursor()
     cur.execute('SELECT * FROM chat;')
-    chat = cur.fetchall()  #[(2, 'vlad', 'priv'), (4, 'Pasha', 'Hello'), (5, 'Semen', '123456')]
+    chat = cur.fetchall()
     cur.close()
 
     list_chat = []
