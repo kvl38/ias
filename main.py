@@ -4,15 +4,15 @@ import json
 
 app = Flask(__name__)
 
+@app.route('/')
+def Start():
+    return "hello server~!!"
+
 @app.route('/getChat', methods=['GET'])
 def getChat():
     cur = conn.cursor()
     cur.execute('SELECT name, message FROM chat;')
     dict = cur.fetchall()
-
-    # dict = {}
-    # for i in chat:
-    #     dict[i[0]] = i[1]
 
     result = json.dumps(dict, indent=2, ensure_ascii=False)
     cur.close()
